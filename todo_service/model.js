@@ -58,6 +58,10 @@ class TodoModel {
         db.todos = db.todos.filter(e => e.id !== id);
         this.saveDB();
     }
+    static saveDB(){
+        const db_dir = `${__dirname}/${DATA_URI}`;
+        writeFileSync(db_dir, JSON.stringify(db));
+    }
 }
 
 module.exports = TodoModel;

@@ -1,16 +1,28 @@
-const {Axios } = require("axios");
+const {Axios, default: axios } = require("axios");
 const { GATEWAY_URI } = require("./config");
 const service = require("./service");
 const TodoModel = require("./model");
 
-const axios = new Axios({
-    timeout: 3000,
-});
-
 async function getUser(userId) {
-    const response = await axios.get(`${GATEWAY_URI}/user/findById/?id=${userId}`);
+    const response = await axios.get(`${GATEWAY_URI}/user/findById/${userId}`);
+    console.log("response = ");
+    //console.log(JSON.stringify(response));
+    console.log("end response = ");
     if (response.status === 200) {
+        console.log("user = ");
+        console.log(response.data);
         return response.data.user;
+    }
+
+    // Failed
+    return undefined;
+}
+
+async function updateTodoCount(userId, todoCount){
+    const response = await axios.get(`${GATEWAY_URI}/user/setTodos/${userId}/${todoCount}`);
+    if (response.status === 200) {
+        console.log(response.data);
+        return true;
     }
 
     // Failed
@@ -23,13 +35,7 @@ async function increaseTodo(userId) {
         return undefined;
     }
 
-    const response = await axios.get(`${GATEWAY_URI}/user/setTodos/?number=${user.numberTodo + 1}`);
-    if (response.status === 200) {
-        return true;
-    }
-
-    // Failed
-    return undefined;
+    return updateTodoCount(userId, parseInt(user.numberTodo) + 1);
 }
 
 async function decreaseTodo(userId) {
@@ -38,13 +44,7 @@ async function decreaseTodo(userId) {
         return undefined;
     }
 
-    const response = await axios.get(`${GATEWAY_URI}/user/setTodos/?number=${user.numberTodo - 1}`);
-    if (response.status === 200) {
-        return true;
-    }
-
-    // Failed
-    return undefined;
+    return updateTodoCount(userId, parseInt(user.numberTodo) - 1);
 }
 
 //Dealing with data base operations
@@ -112,6 +112,7 @@ class TodoRepository {
             
             return undefined;
         } catch (error) {
+            console.log("have error")
             console.log(error);
             throw error;
         }
@@ -125,7 +126,7 @@ class TodoRepository {
                 return true;
             }
             
-            return undefined;
+            return false;
         } catch (error) {
             throw error;
         }

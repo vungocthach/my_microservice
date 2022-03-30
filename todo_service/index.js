@@ -66,7 +66,7 @@ const StartServer = async () => {
     app.delete("/d/", async (req, res, next) => {
         try {
             const { todoId } = req.body;
-            const success = await service.delete(todoId);
+            const success = await service.Delete(todoId);
 
             return res.status(200).json({ status: success });
         } catch (error) {

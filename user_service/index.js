@@ -39,10 +39,10 @@ const StartServer = async () => {
         }
     });
 
-    app.get("/setToDos/:number", async (req, res, next) => {
+    app.get("/setToDos/:userId/:number", async (req, res, next) => {
         try {
-            const { number } = req.params;
-            const newNumber = await service.SetNumberTask(number);
+            const { number, userId } = req.params;
+            const newNumber = await service.SetNumberTask(userId, number);
 
             return res.status(200).json({ status: true, newNumber });
         } catch (error) {

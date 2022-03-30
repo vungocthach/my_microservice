@@ -24,11 +24,11 @@ class UserRepository {
      */
     async SetNumberTask(userId, number) {
         try {
-            let currentNumberTask = await UserModel.setNumberTask(
+            await UserModel.setNumberTask(
                 userId,
                 number
             );
-            return newNumberTask;
+            return true;
         } catch (error) {
             throw error;
         }
