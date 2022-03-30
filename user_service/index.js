@@ -4,12 +4,25 @@ const service = require("./service");
 
 const StartServer = async () => {
     const app = express();
+    
+    app.use(express.json());
 
     app.get("/", async (req, res, next) => {
         try {
             const users = await service.GetAll();
 
             return res.status(200).json({ status: true, users });
+        } catch (error) {
+            return res.status(500).json({ status: false, error });
+        }
+    });
+
+    app.get("/findById/:id", async (req, res, next) => {
+        try {
+            const {id} = req.params;
+            const user = await service.GetById(id);
+
+            return res.status(200).json({ status: true, user: user });
         } catch (error) {
             return res.status(500).json({ status: false, error });
         }
@@ -26,7 +39,7 @@ const StartServer = async () => {
         }
     });
 
-    app.get("/:number", async (req, res, next) => {
+    app.get("/setToDos/:number", async (req, res, next) => {
         try {
             const { number } = req.params;
             const newNumber = await service.SetNumberTask(number);

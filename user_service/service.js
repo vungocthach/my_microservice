@@ -1,4 +1,4 @@
-const { UserModel } = require("./model");
+const UserModel = require("./model");
 
 //Dealing with data base operations
 class UserRepository {
@@ -9,7 +9,7 @@ class UserRepository {
      */
     async FindUser(username) {
         try {
-            const user = await UserModel.findOne(username);
+            const user = await UserModel.findUser(username);
             return user;
         } catch (err) {
             throw error;
@@ -57,6 +57,10 @@ class UserRepository {
         }
     }
 
+    async GetById(id){
+        return UserModel.findUserById(id);
+    }
+
     async Delete(userId) {
         try {
             let isSuccess = await UserModel.delete(userId);
@@ -67,4 +71,4 @@ class UserRepository {
     }
 }
 
-module.exports = UserRepository;
+module.exports = new UserRepository();
