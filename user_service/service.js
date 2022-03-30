@@ -48,6 +48,15 @@ class UserRepository {
         }
     }
 
+    async GetAll() {
+        try {
+            let users = await UserModel.getAll();
+            return users;
+        } catch (error) {
+            throw error;
+        }
+    }
+
     async Delete(userId) {
         try {
             let isSuccess = await UserModel.delete(userId);

@@ -5,9 +5,19 @@ const service = require("./service");
 const StartServer = async () => {
     const app = express();
 
-    app.get("/:username:&password", async (req, res, next) => {
+    app.get("/", async (req, res, next) => {
         try {
-            const { username, password } = req.params;
+            const users = await service.GetAll();
+
+            return res.status(200).json({ status: true, users });
+        } catch (error) {
+            return res.status(500).json({ status: false, error });
+        }
+    });
+
+    app.get("/f/:username", async (req, res, next) => {
+        try {
+            const { username } = req.params;
             const user = await service.FindUser(username);
 
             return res.status(200).json({ status: true, user });

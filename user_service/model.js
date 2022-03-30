@@ -7,11 +7,11 @@ class UserModel {
         this.gender = gender;
         this.numberTask = 0;
     }
-    static findUser(username);
-    static setNumberTask(userId, number);
-    static create(username, password, name, gender);
-    static delete(userId);
-
+    static findUser(username) {}
+    static setNumberTask(userId, number) {}
+    static create(username, password, name, gender) {}
+    static delete(userId){}
+    static getAll(){}
 }
 
-export default UserModel;
+module.exports = UserModel;

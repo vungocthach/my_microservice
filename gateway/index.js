@@ -8,7 +8,7 @@ app.use(cors());
 app.use(express.json());
 
 app.use('/user', proxy('http://localhost:8001'))
-app.use('/todo', proxy('http://localhost:8003'))
+app.use('/todo', proxy('http://localhost:8002'))
 
 
 app.listen(8000, () => {

@@ -6,7 +6,7 @@ users = [
         username: "davidmorgin",
         gender: "male",
         password: "123456",
-        numberTask: 3,
+        numberTodo: 3,
     },
     {
         id: "2",
@@ -14,13 +14,13 @@ users = [
         username: "alicesweet",
         gender: "female",
         password: "12345678",
-        numberTask: 2,
+        numberTodo: 2,
     },    {
         id: "3",
         name: "John Switch",
         username: "johnswitch",
         gender: "male",
         password: "123",
-        numberTask: 3,
+        numberTodo: 3,
     },
 ]
