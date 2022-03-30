@@ -28,28 +28,6 @@ const StartServer = async () => {
         }
     });
 
-    // app.get("/f/:todoId", async (req, res, next) => {
-    //     try {
-    //         const { todoId } = req.params;
-    //         const todo = await service.GetOne(todoId);
-
-    //         return res.status(200).json({ status: true, todo });
-    //     } catch (error) {
-    //         return res.status(500).json({ status: false, error });
-    //     }
-    // });
-
-    // app.post("/u/", async (req, res, next) => {
-    //     try {
-    //         const { todo } = req.body;
-    //         const success = await service.update(todo);
-
-    //         return res.status(200).json({ status: success });
-    //     } catch (error) {
-    //         return res.status(500).json({ status: false, error });
-    //     }
-    // });
-
     app.post("/c/", async (req, res, next) => {
         try {
             console.log(`Have req with body =` + JSON.stringify(req.body));
@@ -59,7 +37,7 @@ const StartServer = async () => {
 
             return res.status(200).json({ status: success });
         } catch (error) {
-            return res.status(500).json({ status: false, error });
+            return res.status(500).json({ status: false, error: "Server have caught unexpected error" });
         }
     });
 
@@ -70,7 +48,7 @@ const StartServer = async () => {
 
             return res.status(200).json({ status: success });
         } catch (error) {
-            return res.status(500).json({ status: false, error });
+            return res.status(500).json({ status: false, error: "Server have caught unexpected error"  });
         }
     });
 

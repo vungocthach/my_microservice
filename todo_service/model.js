@@ -60,7 +60,7 @@ class TodoModel {
     }
     static saveDB(){
         const db_dir = `${__dirname}/${DATA_URI}`;
-        writeFileSync(db_dir, JSON.stringify(db));
+        writeFileSync(db_dir, JSON.stringify(db, null, 4));
     }
 }
 

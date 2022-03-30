@@ -1,51 +1,5 @@
-const {Axios, default: axios } = require("axios");
-const { GATEWAY_URI } = require("./config");
-const service = require("./service");
 const TodoModel = require("./model");
-
-async function getUser(userId) {
-    const response = await axios.get(`${GATEWAY_URI}/user/findById/${userId}`);
-    console.log("response = ");
-    //console.log(JSON.stringify(response));
-    console.log("end response = ");
-    if (response.status === 200) {
-        console.log("user = ");
-        console.log(response.data);
-        return response.data.user;
-    }
-
-    // Failed
-    return undefined;
-}
-
-async function updateTodoCount(userId, todoCount){
-    const response = await axios.get(`${GATEWAY_URI}/user/setTodos/${userId}/${todoCount}`);
-    if (response.status === 200) {
-        console.log(response.data);
-        return true;
-    }
-
-    // Failed
-    return undefined;
-}
-
-async function increaseTodo(userId) {
-    const user = await getUser(userId);
-    if(!user){
-        return undefined;
-    }
-
-    return updateTodoCount(userId, parseInt(user.numberTodo) + 1);
-}
-
-async function decreaseTodo(userId) {
-    const user = await getUser(userId);
-    if(!user){
-        return undefined;
-    }
-
-    return updateTodoCount(userId, parseInt(user.numberTodo) - 1);
-}
+const { decreaseTodo, increaseTodo } = require("./api/user");
 
 //Dealing with data base operations
 class TodoRepository {
@@ -106,14 +60,11 @@ class TodoRepository {
                 await TodoModel.create(name, userId);
                 return true;
             }
-            else{
-                console.log("failed when call");
-            }
             
             return undefined;
         } catch (error) {
-            console.log("have error")
-            console.log(error);
+            // console.log("have error")
+            // console.log(error);
             throw error;
         }
     }
